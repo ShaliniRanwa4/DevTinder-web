@@ -25,18 +25,18 @@ const Connections = () => {
   }, []);
 
   if (!connections) return;
-  if (connections.length === 0) return <h1> NO Request Found </h1>;
+  if (connections.length === 0) return <h1> NO Connection Found </h1>;
 
   return (
     <div className="text-center my-10">
       <h1 className="text-bold text-white text-3xl">Connection</h1>
       {connections.map((connection) => {
-        const { firstName, lastName, age, about, gender } =
+        const { _id,firstName, lastName, age, about, gender } =
           connection;
         // console.log(photoUrl)
         return (
           <div
-            key={connection}
+            key={_id}
             className="m-4 p-4 border rounded-full bg-base-300 flex w-1/2 mx-auto"
           >
             <div>
