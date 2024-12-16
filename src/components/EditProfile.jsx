@@ -130,20 +130,23 @@ const EditProfile = ({ user }) => {
                   className="input input-bordered w-full max-w-xs"
                   onChange={(e) => setGender(e.target.value)}
                 >
-                  <option>
-                    <li>
+                  <option value={"male"}>
+                    {/* <li>
                       <a>male</a>
-                    </li>
+                    </li> */}
+                    male
                   </option>
-                  <option>
-                    <li>
+                  <option value={"female"}>
+                    {/* <li>
                       <a>female</a>
-                    </li>
+                    </li> */}
+                    female
                   </option>
-                  <option>
-                    <li>
+                  <option value={"other"}>
+                    {/* <li>
                       <a>other</a>
-                    </li>
+                    </li> */}
+                    other
                   </option>
                 </select>
               </label>
