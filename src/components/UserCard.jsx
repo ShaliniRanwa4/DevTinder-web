@@ -1,7 +1,19 @@
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 const UserCard = ({ user }) => {
-  const { firstName, lastName, about, photoUrl, age, gender } = user;
+  const { firstName, lastName, about, age, gender } = user;
+
+  UserCard.propTypes = {
+    user: PropTypes.shape({
+      firstName: PropTypes.string.isRequired,
+      lastName:PropTypes.string.isRequired,
+      about:PropTypes.string.isRequired,
+      // photoUrl:PropTypes.string.isRequired,
+      // age:PropTypes.number.isRequired,
+      // gender:PropTypes.string.isRequired,
+     
+    }).isRequired,
+  };
 
   // console.log(user)
   return (

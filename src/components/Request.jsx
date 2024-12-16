@@ -2,13 +2,13 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests } from "../utils/requestsSlice";
+import { addRequests, removeRequest } from "../utils/requestsSlice";
 
 const Request = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.requests);
 
-  const fetchReuest = async () => {
+  const fetchRequest = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/request/received", {
         withCredentials: true,
@@ -20,16 +20,28 @@ const Request = () => {
     }
   };
 
+const reviewRequest=async(status,_id)=>{
+  try{
+    const res=await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true})
+    // console.log(res)
+    dispatch(removeRequest(_id))
+  }catch(err){
+    console.error(err)
+  }
+
+}
+
+
   useEffect(() => {
-    fetchReuest();
+    fetchRequest();
   }, []);
 
   if (!requests) return;
-  if (requests.length === 0) return <h1> NO Request Found </h1>;
+  if (requests.length === 0) return <h1 className="flex justify-center my-10 font-bold"> NO Request Found </h1>;
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl">Request</h1>
+      <h1 className="text-bold text-white text-3xl">Request Received</h1>
       {requests.map((request) => {
         const { _id, firstName, lastName, age, about, gender } =
           request.fromUserId;
@@ -55,8 +67,8 @@ const Request = () => {
               {age && gender && <p>{age + " " + gender}</p>}
               <p>{about}</p>
             </div>
-            <button className="btn btn-outline btn-info mx-2  rounded-full">Reject</button>
-            <button className="btn btn-outline btn-success rounded-full">Add Connection</button>
+            <button className="btn btn-outline btn-info mx-2  rounded-full" onClick={()=>reviewRequest("rejected",request._id)}>Reject</button>
+            <button className="btn btn-outline btn-success rounded-full"onClick={()=>reviewRequest("accepted",request._id)}>Add Connection</button>
           </div>
         );
       })}
