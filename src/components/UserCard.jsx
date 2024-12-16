@@ -1,3 +1,5 @@
+// import PropTypes from 'prop-types'
+
 const UserCard = ({ user }) => {
   const { firstName, lastName, about, photoUrl, age, gender } = user;
 
@@ -7,7 +9,7 @@ const UserCard = ({ user }) => {
       <div className="card bg-base-300 w-96 shadow-xl">
         <figure>
           <img
-            src="https://avatars.githubusercontent.com/u/176595043?v=4"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
             alt="photo"
           />
         </figure>
