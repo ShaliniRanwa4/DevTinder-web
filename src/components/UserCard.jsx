@@ -17,7 +17,7 @@ const UserCard = ({ user }) => {
         {},
         { withCredentials: true }
       );
-      // console.log(res);
+      console.log(res);
       dispatch(removeFeed(_id));
     } catch (err) {
       // console.error(err)
@@ -27,12 +27,13 @@ const UserCard = ({ user }) => {
 
   UserCard.propTypes = {
     user: PropTypes.shape({
+      // _id:PropTypes.number.isRequired,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
       about: PropTypes.string.isRequired,
       // photoUrl:PropTypes.string.isRequired,
-      // age:PropTypes.number.isRequired,
-      // gender:PropTypes.string.isRequired,
+      age:PropTypes.number.isRequired,
+      gender:PropTypes.string.isRequired,
     }).isRequired,
   };
 
@@ -40,10 +41,11 @@ const UserCard = ({ user }) => {
 
   return (
     <div className="">
+      <h2>{error}</h2>
       <div className="card bg-base-300 w-96 shadow-xl h-auto mt-14">
         <figure>
           <img
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+            src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
             alt="photo"
             className="h-60 w-full"
           />

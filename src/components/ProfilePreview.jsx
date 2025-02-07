@@ -8,7 +8,7 @@ const ProfilePreview = ({user}) => {
     <div className="card bg-base-300 w-96 shadow-xl">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+          src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
           alt="photo"
         />
       </figure>

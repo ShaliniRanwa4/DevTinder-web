@@ -1,5 +1,6 @@
 import { useState } from "react";
-import UserCard from "./UserCard";
+import PropTypes from "prop-types";
+
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
@@ -21,6 +22,22 @@ const EditProfile = ({ user }) => {
   const [showTost, setShowTest] = useState(false);
 
   const dispatch = useDispatch();
+
+
+
+
+  // EditProfile.propTypes = {
+  //     user: PropTypes.shape({
+  //       // _id:PropTypes.number.isRequired,
+  //       firstName: PropTypes.string.isRequired,
+  //       skills: PropTypes.array.isRequired,
+  //       lastName: PropTypes.string.isRequired,
+  //       about: PropTypes.string.isRequired,
+  //       photoUrl:PropTypes.string.isRequired,
+  //       age:PropTypes.number.isRequired,
+  //       gender:PropTypes.string.isRequired,
+  //     }).isRequired,
+  //   };
 
   const saveProfile = async () => {
     setError("");

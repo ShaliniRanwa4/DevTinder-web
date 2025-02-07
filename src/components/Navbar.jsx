@@ -32,6 +32,7 @@ const Navbar = () => {
             DevTinder
           </Link>
         </div>
+        <h3>{error}</h3>
         {user && (
           <div className="flex-none gap-2">
             <div className="form-control">Welcome,{user.firstName}</div>
@@ -45,7 +46,7 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
                   />
                 </div>
               </div>
