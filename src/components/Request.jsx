@@ -1,12 +1,13 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestsSlice";
 
 const Request = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.requests);
+  const [error,setError]=useState("")
 
   const fetchRequest = async () => {
     try {
@@ -16,17 +17,19 @@ const Request = () => {
       // console.log(res);
       dispatch(addRequests(res?.data?.connectionRequests));
     } catch (err) {
-      console.error(err);
+      // console.error(err);
+      setError(err?.response?.data ||"Something Went Wrong")
     }
   };
 
 const reviewRequest=async(status,_id)=>{
   try{
-    const res=await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true})
+    await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true})
     // console.log(res)
     dispatch(removeRequest(_id))
   }catch(err){
-    console.error(err)
+    // console.error(err)
+    setError(err?.response?.data ||"Something Went Wrong")
   }
 
 }
@@ -37,11 +40,11 @@ const reviewRequest=async(status,_id)=>{
   }, []);
 
   if (!requests) return;
-  if (requests.length === 0) return <h1 className="flex justify-center my-10 font-bold"> NO Request Found </h1>;
+  if (requests.length === 0) return <h1 className="flex justify-center my-10 py-24 font-bold"> NO Request Found </h1>;
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl">Request Received</h1>
+      <h1 className="text-bold text-white text-3xl mt-24 mb-10">Request Received</h1>
       {requests.map((request) => {
         const { _id, firstName, lastName, age, about, gender } =
           request.fromUserId;
@@ -49,7 +52,7 @@ const reviewRequest=async(status,_id)=>{
         return (
           <div
             key={_id}
-            className="m-4 p-4 justify-between  items-center border rounded-full bg-base-300 flex w-1/2 mx-auto"
+            className=" p-4 justify-between  items-center border rounded-full bg-base-300 flex w-1/2 mx-auto my-3"
           >
             <div>
               <img
@@ -58,7 +61,7 @@ const reviewRequest=async(status,_id)=>{
                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
             </div>
-            <div className="text-left mx-4">
+            <div className="text-left">
               {" "}
               <h2 className="font-bold text-white">
                 {" "}
@@ -67,8 +70,8 @@ const reviewRequest=async(status,_id)=>{
               {age && gender && <p>{age + " " + gender}</p>}
               <p>{about}</p>
             </div>
-            <button className="btn btn-outline btn-info mx-2  rounded-full" onClick={()=>reviewRequest("rejected",request._id)}>Reject</button>
-            <button className="btn btn-outline btn-success rounded-full"onClick={()=>reviewRequest("accepted",request._id)}>Add Connection</button>
+            <button className="btn btn-outline btn-info  px-4 rounded-full" onClick={()=>reviewRequest("rejected",request._id)}>Reject</button>
+            <button className="btn btn-outline btn-success px-4 rounded-full"onClick={()=>reviewRequest("accepted",request._id)}>Add Connection</button>
           </div>
         );
       })}

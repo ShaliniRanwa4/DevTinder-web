@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import { useState } from "react";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
+  const [error,setError]=useState("")
   // console.log(user)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,15 +19,16 @@ const Navbar = () => {
 
       return navigate("/login");
     } catch (err) {
-      console.error(err);
+      // console.error(err);
+      setError(err?.response?.data ||"Something Went Wrong")
     }
   };
 
   return (
     <div>
-      <div className="navbar bg-base-300">
+      <div className="navbar bg-base-300 fixed top-0 z-50">
         <div className="flex-1">
-          <Link to={"/"} className="btn btn-ghost text-xl">
+          <Link to={"/"} className="btn btn-ghost text-3xl">
             DevTinder
           </Link>
         </div>

@@ -1,23 +1,24 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionsSlice";
-
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connections);
+  const [error, setError] = useState();
 
   const fetchConnections = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connection", {
         withCredentials: true,
       });
-      console.log(res.data.data);
+      // console.log(res.data.data);
       dispatch(addConnections(res.data.data));
     } catch (err) {
-      console.log(err);
+      setError(err?.response?.data || "Something Went Wrong");
     }
   };
   useEffect(() => {
@@ -25,14 +26,19 @@ const Connections = () => {
   }, []);
 
   if (!connections) return;
-  if (connections.length === 0) return <h1 className="flex justify-center my-10 font-bold"> NO Connection Found !!  </h1>;
+  if (connections.length === 0)
+    return (
+      <h1 className="flex justify-center my-10 py-24 font-bold">
+        {" "}
+        NO Connection Found !!{" "}
+      </h1>
+    );
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl">Connection</h1>
+      <h1 className="font-extrabold text-white text-3xl mt-24 ">Connection</h1>
       {connections.map((connection) => {
-        const { _id,firstName, lastName, age, about, gender } =
-          connection;
+        const { _id, firstName, lastName, age, about, gender } = connection;
         // console.log(photoUrl)
         return (
           <div
@@ -48,10 +54,22 @@ const Connections = () => {
             </div>
             <div className="text-left mx-4">
               {" "}
-              <h2 className="font-bold text-white"> {firstName + " " + lastName}</h2>
-             { age && gender &&<p>{age+" "+gender}</p>}
+              <h2 className="font-bold text-white">
+                {" "}
+                {firstName + " " + lastName}
+              </h2>
+              {age && gender && <p>{age + " " + gender}</p>}
               <p>{about}</p>
             </div>
+            <Link to={"/chat/" + _id}>
+              <div className="mx-auto my-auto pl-24">
+                <button className="btn btn-outline btn-success p-4   ">
+                  chat
+                </button>
+              </div>
+            </Link>
+
+
           </div>
         );
       })}
