@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
@@ -17,6 +17,8 @@ const Chat = () => {
   const userId = user?._id;
   const firstName = user?.firstName;
   const lastName = user?.lastName;
+
+  const chatContainerRef = useRef(null);
 
   const fetchChatMessages = async () => {
     const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
@@ -36,6 +38,13 @@ const Chat = () => {
   useEffect(() => {
     fetchChatMessages();
   }, []);
+
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (!userId) {
@@ -68,7 +77,7 @@ const Chat = () => {
 
   return (
     <div className="border border-white h-4/5 w-1/2 mt-36 mx-auto rounded-xl ">
-      <div className="w-full h-96 cursor-pointer  overflow-y-scroll p-3 ">
+      <div className="w-full h-96 cursor-pointer  overflow-y-scroll p-3 "   ref={chatContainerRef}>
         {messages.map((msg, index) => {
           return (
             <div
