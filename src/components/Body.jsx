@@ -11,26 +11,42 @@ const Body = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector((store) => store.user);
-  const profileView = async () => {
-    if (userData) return;
+  // const profileView = async () => {
+  //   if (userData) return;
 
-    try {
-      const res = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
-      // console.log(res.data);
-      dispatch(addUser(res.data));
-    } catch (err) {
-      if (err.status === 401) {
-      return   navigate("/login");
-      }
-      // console.error(err);
-    }
-  };
+  //   try {
+  //     const res = await axios.get(BASE_URL + "/profile/view", {
+  //       withCredentials: true,
+  //     });
+  //     // console.log(res.data);
+  //     dispatch(addUser(res.data));
+  //   } catch (err) {
+  //     if (err.status === 401) {
+  //     return   navigate("/login");
+  //     }
+  //     // console.error(err);
+  //   }
+  // };
 
   useEffect(() => {
+    const profileView = async () => {
+      if (userData) return;
+  
+      try {
+        const res = await axios.get(BASE_URL + "/profile/view", {
+          withCredentials: true,
+        });
+        // console.log(res.data);
+        dispatch(addUser(res.data));
+      } catch (err) {
+        if (err.status === 401) {
+        return   navigate("/login");
+        }
+        // console.error(err);
+      }
+    };
     profileView();
-  }, []);
+  }, [navigate,userData,dispatch]);
 
   return (
     <div>

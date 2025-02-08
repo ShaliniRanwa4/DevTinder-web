@@ -1,11 +1,12 @@
 import axios from "axios";
-import PropTypes from "prop-types";
 import { BASE_URL } from "../utils/constants";
 import { removeFeed } from "../utils/feedSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
-const UserCard = ({ user }) => {
+const UserCard = () => {
+  const feed=useSelector((store)=>store.feed)
+  const user=feed[0]
   const { _id, firstName, lastName, about, age, gender } = user;
   const dispatch = useDispatch();
   const [error, setError] = useState();
@@ -21,23 +22,12 @@ const UserCard = ({ user }) => {
       dispatch(removeFeed(_id));
     } catch (err) {
       // console.error(err)
+      
       setError(err?.response?.data || "Something Went Wrong");
     }
   };
 
-  UserCard.propTypes = {
-    user: PropTypes.shape({
-      // _id:PropTypes.number.isRequired,
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
-      about: PropTypes.string.isRequired,
-      // photoUrl:PropTypes.string.isRequired,
-      age:PropTypes.number.isRequired,
-      gender:PropTypes.string.isRequired,
-    }).isRequired,
-  };
-
-  // console.log(user)
+ 
 
   return (
     <div className="">

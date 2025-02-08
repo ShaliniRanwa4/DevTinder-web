@@ -43,40 +43,55 @@ const reviewRequest=async(status,_id)=>{
   if (requests.length === 0) return <h1 className="flex justify-center my-10 py-24 font-bold"> NO Request Found </h1>;
 
   return (
+  
+
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl mt-24 mb-10">Request Received</h1>
-      <h3>{error}</h3>
-      {requests.map((request) => {
-        const { _id, firstName, lastName, age, about, gender } =
-          request.fromUserId;
-        // console.log(photoUrl)
-        return (
-          <div
-            key={_id}
-            className=" p-4 justify-between  items-center border rounded-full bg-base-300 flex w-1/2 mx-auto my-3"
+  <h1 className="font-extrabold text-white text-3xl mt-24 mb-10">Request Received</h1>
+  <h3>{error}</h3>
+
+  {requests.map((request) => {
+    const { _id, firstName, lastName, age, about, gender } = request.fromUserId;
+
+    return (
+      <div
+        key={_id}
+        className="p-6 flex items-center justify-between border rounded-lg bg-base-300 max-w-lg w-full mx-auto my-3 shadow-md hover:shadow-lg transition"
+      >
+        {/* Profile Image */}
+        <img
+          alt="User Avatar"
+          className="h-16 w-16 rounded-full object-cover border border-gray-500"
+          src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+        />
+
+        {/* User Info */}
+        <div className="text-left flex-1 mx-4">
+          <h2 className="font-bold text-white text-lg">{firstName + " " + lastName}</h2>
+          {age && gender && <p className="text-sm text-gray-300">{age} • {gender}</p>}
+          <p className="text-gray-400 text-sm">{about}</p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2">
+          <button 
+            className="btn btn-outline btn-info btn-sm px-4 rounded-md transition hover:bg-info hover:text-white" 
+            onClick={() => reviewRequest("rejected", request._id)}
           >
-            <div>
-              <img
-                alt="photo"
-                className="h-20 w-20 rounded-full"
-                src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
-              />
-            </div>
-            <div className="text-left">
-              {" "}
-              <h2 className="font-bold text-white">
-                {" "}
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + " " + gender}</p>}
-              <p>{about}</p>
-            </div>
-            <button className="btn btn-outline btn-info  px-4 rounded-full" onClick={()=>reviewRequest("rejected",request._id)}>Reject</button>
-            <button className="btn btn-outline btn-success px-4 rounded-full"onClick={()=>reviewRequest("accepted",request._id)}>Add Connection</button>
-          </div>
-        );
-      })}
-    </div>
+            Reject
+          </button>
+
+          <button 
+            className="btn btn-outline btn-success btn-sm px-4 rounded-md transition hover:bg-success hover:text-white" 
+            onClick={() => reviewRequest("accepted", request._id)}
+          >
+            Add Connection
+          </button>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
   );
 };
 

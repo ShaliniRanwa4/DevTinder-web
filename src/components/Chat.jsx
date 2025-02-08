@@ -20,24 +20,38 @@ const Chat = () => {
 
   const chatContainerRef = useRef(null);
 
-  const fetchChatMessages = async () => {
-    const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
-      withCredentials: true,
-    });
-    // console.log(chat.data.messages);
-    const chatMessages = chat?.data?.messages.map((msg) => {
-      return {
-        firstName: msg?.senderId?.firstName,
-        lastName: msg?.senderId?.lastName,
-        text: msg?.text,
-      };
-    });
-    setMessages(chatMessages);
-  };
+  // const fetchChatMessages = async () => {
+  //   const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
+  //     withCredentials: true,
+  //   });
+  //   // console.log(chat.data.messages);
+  //   const chatMessages = chat?.data?.messages.map((msg) => {
+  //     return {
+  //       firstName: msg?.senderId?.firstName,
+  //       lastName: msg?.senderId?.lastName,
+  //       text: msg?.text,
+  //     };
+  //   });
+  //   setMessages(chatMessages);
+  // };
 
   useEffect(() => {
+    const fetchChatMessages = async () => {
+      const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
+        withCredentials: true,
+      });
+      // console.log(chat.data.messages);
+      const chatMessages = chat?.data?.messages.map((msg) => {
+        return {
+          firstName: msg?.senderId?.firstName,
+          lastName: msg?.senderId?.lastName,
+          text: msg?.text,
+        };
+      });
+      setMessages(chatMessages);
+    };
     fetchChatMessages();
-  }, []);
+  }, [targetUserId]);
 
 
   useEffect(() => {
@@ -61,7 +75,7 @@ const Chat = () => {
     return () => {
       socket.disconnect();
     };
-  }, [userId, targetUserId]);
+  }, [firstName,userId, targetUserId]);
 
   const sendMessage = () => {
     const socket = createSocketConnection();
