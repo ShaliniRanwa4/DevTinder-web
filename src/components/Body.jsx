@@ -11,7 +11,7 @@ const Body = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector((store) => store.user);
-  // const profileView = async () => {
+  
   //   if (userData) return;
 
   //   try {
