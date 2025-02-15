@@ -94,7 +94,10 @@ const Body = () => {
       }
     };
     profileView();
-  }, [navigate, userData, dispatch, fetched]);
+  }, 
+  // [navigate, userData, dispatch, fetched]
+  []
+);
 
   return (
     <div>
