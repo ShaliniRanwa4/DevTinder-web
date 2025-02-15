@@ -28,9 +28,9 @@ const Navbar = () => {
     <div>
       <div className="navbar bg-base-300 fixed top-0 z-50">
         <div className="flex-1">
-          <Link to={"/"} className="btn btn-ghost text-3xl">
+          {/* <Link to={"/"} className="btn btn-ghost text-3xl"> */}
             DevTinder
-          </Link>
+          {/* </Link> */}
         </div>
         <h3>{error}</h3>
         {user && (
