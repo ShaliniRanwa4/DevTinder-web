@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
-import { useNavigate } from "react-router-dom";
-import { addUser } from "../utils/userSlice";
+// import { useNavigate } from "react-router-dom";
+// import { addUser } from "../utils/userSlice";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
@@ -13,29 +13,29 @@ const Feed = () => {
   const [error, setError] = useState();
 
   // const userData = useSelector((store) => store.user);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
 
-  const handle1 = async () => {
-    try {
-      const res = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
-      // console.log(res.data);
-      dispatch(addUser(res.data));
-      // navigate("/")
-    } catch (err) {
-      if (err.status === 401) {
-        navigate("/login");
-      }
-      // console.error(err);
-    }
-  };
+  // const handle1 = async () => {
+  //   try {
+  //     const res = await axios.get(BASE_URL + "/profile/view", {
+  //       withCredentials: true,
+  //     });
+  //     // console.log(res.data);
+  //     dispatch(addUser(res.data));
+  //     // navigate("/")
+  //   } catch (err) {
+  //     if (err.status === 401) {
+  //       navigate("/login");
+  //     }
+  //     // console.error(err);
+  //   }
+  // };
 
 
-  useEffect(()=>{
-    handle1()
-  })
+  // useEffect(()=>{
+  //   handle1()
+  // })
 
   
   const handleFeed = async () => {
