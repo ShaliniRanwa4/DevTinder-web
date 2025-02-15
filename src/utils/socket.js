@@ -27,6 +27,6 @@ import { BASE_URL } from "./constants";
 
 export const createSocketConnection = () => {
     return io(BASE_URL, {
-        path: location.hostname === "localhost" ? "" : "/api/socket.io"
+        path: location.hostname === "localhost" ? "" : "/socket.io"
     });
 };
