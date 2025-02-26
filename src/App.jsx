@@ -8,6 +8,7 @@ import Feed from "./components/Feed";
 import Connections from "./components/Connections";
 import Request from "./components/Request";
 import Chat from "./components/Chat";
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" element={<Feed></Feed>} />
               <Route path="/profile" element={<Profile></Profile>} />
               <Route path="/login" element={<Login></Login>} />
+              <Route path="/signup" element={<SignUp></SignUp>}></Route>
               <Route
                 path="/connections"
                 element={<Connections></Connections>}

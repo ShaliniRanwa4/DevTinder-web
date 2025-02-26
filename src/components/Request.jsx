@@ -40,17 +40,17 @@ const reviewRequest=async(status,_id)=>{
   }, []);
 
   if (!requests) return;
-  if (requests.length === 0) return <h1 className="flex justify-center my-10 py-24 font-bold"> NO Request Found </h1>;
+  if (requests.length === 0) return <h1 className="flex justify-center text-black my-10 py-24 font-bold text-2xl"> No Request Found !!</h1>;
 
   return (
   
 
-    <div className="text-center my-10">
-  <h1 className="font-extrabold text-white text-3xl mt-24 mb-10">Request Received</h1>
+    <div className="text-center my-10 cursor-pointer">
+  <h1 className="font-extrabold text-white text-3xl mt-10 mb-10">Request Received</h1>
   <h3>{error}</h3>
 
   {requests.map((request) => {
-    const { _id, firstName, lastName, age, about, gender } = request.fromUserId;
+    const { _id, firstName, lastName, age, about, gender,photoUrl } = request.fromUserId;
 
     return (
       <div
@@ -61,7 +61,8 @@ const reviewRequest=async(status,_id)=>{
         <img
           alt="User Avatar"
           className="h-16 w-16 rounded-full object-cover border border-gray-500"
-          src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+          // src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+          src={photoUrl}
         />
 
         {/* User Info */}
